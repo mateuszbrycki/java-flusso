@@ -29,6 +29,7 @@ public class LoginAndRegistrationGUI extends Application implements EventHandler
 
         Parent root = FXMLLoader.load(getClass().getResource("gui.fxml"));
         window = primaryStage;
+        window.setResizable(false);
         window.setTitle("Fusso");
         window.setOnCloseRequest(e->{
             e.consume();

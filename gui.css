@@ -10,3 +10,25 @@
 .best{
     -fx-background-color: green,linear-gradient(to bottom, derive(green,60%) 5%,derive(green,90%) 40%);
 }
+#pane{
+    -fx-background-color: linear-gradient(#383838, #383832);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 600 350;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+.label
+{
+    -fx-text-fill: #e8e8e8;
+    -fx-font-weight: bold;
+}
+.button{
+    -fx-background-color: linear-gradient(#dc9656, #ab4642);
+    -fx-text-fill: ghostwhite;
+    -fx-background-radius: 20;
+    -fx-font-weight: bold;
+}
+.text-field
+{
+    -fx-background-radius: 20;
+}
