@@ -1,5 +1,7 @@
 package com.example.rmi;
 
+import com.example.database.DatabaseService;
+import com.example.database.DatabaseServiceImpl;
 import com.example.entity.File;
 import com.example.entity.User;
 import com.example.entity.response.ResponseEntity;
@@ -8,6 +10,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -19,8 +22,8 @@ public class UserServiceImpl implements UserService, Callable {
 
     private DatabaseService databaseService;
 
-    public UserServiceImpl(DatabaseService databaseService) {
-        this.databaseService = databaseService;
+    public UserServiceImpl(DatabaseServiceImpl databaseServiceImpl) {
+        this.databaseService = databaseServiceImpl;
     }
 
     public String call() throws RemoteException {
@@ -45,14 +48,14 @@ public class UserServiceImpl implements UserService, Callable {
      * @param password password
      * @return information if user should be logged in
      */
-    public ResponseEntity<Boolean, Object> loginUser(String mail, String password) {
+    public ResponseEntity<Boolean, Object> loginUser(String mail, String password) throws SQLException {
 
-        //TODO MBryzik - zapytane do bazy o u¿ytkownika z tym has³em i mailem
-        if(!databaseService.loginUser()) {
+        //TODO MBryzik - zapytane do bazy o uï¿½ytkownika z tym hasï¿½em i mailem
+        if(!databaseService.loginUser(mail, password)) {
             return new ResponseEntity<Boolean, Object>(false, "User authentication failed");
         }
 
-        //TODO MBryzik - zwrócenie wype³nionej encji u¿ytkownika w celu przes³ania do klienta
+        //TODO MBryzik - zwrï¿½cenie wypeï¿½nionej encji uï¿½ytkownika w celu przesï¿½ania do klienta
         User user = databaseService.findUserByMail(mail);
 
         return new ResponseEntity<Boolean, Object>(true, user);
@@ -64,7 +67,7 @@ public class UserServiceImpl implements UserService, Callable {
      * @param user user entity instance
      * @return information if user account has been successfully created
      */
-    public ResponseEntity<Boolean, Object> registerUser(User user) {
+    public ResponseEntity<Boolean, Object> registerUser(User user) throws SQLException {
         Boolean userMailExists = databaseService.checkIfMailExists(user.getMail());
 
         if(userMailExists) {
@@ -87,12 +90,11 @@ public class UserServiceImpl implements UserService, Callable {
      * @param userId user id
      * @return user files list
      */
-    public List<File> getUserFiles(Integer userId) {
+    public List<File> getUserFiles(Integer userId) throws SQLException {
 
-        //TODO MBryzik - pobranie i zmapowanie plików uzytkownika
+        //TODO MBryzik - pobranie i zmapowanie plikï¿½w uzytkownika
         List<File> userFiles = databaseService.findUserFiles(userId);
 
         return userFiles;
     }
-
 }
