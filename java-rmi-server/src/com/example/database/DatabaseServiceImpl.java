@@ -11,9 +11,11 @@ import java.util.List;
  */
 public class DatabaseServiceImpl implements DatabaseService {
 
-private final String Driver = "com.mysql.jdbc.Driver";
-private Connection connection = null;
-private final String URL = "jdbc:mysql://localhost:3306/";
+    private final String Driver = "com.mysql.jdbc.Driver";
+    private Connection connection = null;
+    private final String URL = "jdbc:mysql://localhost:3306/";
+    private String username = null;
+    private String databasePassword = null;
 
     public DatabaseServiceImpl()
     {
@@ -31,7 +33,7 @@ private final String URL = "jdbc:mysql://localhost:3306/";
 
         //tworzenie połaczenia
         try {
-            connection = DriverManager.getConnection(this.URL, "root", "");
+            connection = DriverManager.getConnection(this.URL, this.username, this.databasePassword);
         }
         catch (SQLException e) {
             System.out.println("Cannot connect to database");
