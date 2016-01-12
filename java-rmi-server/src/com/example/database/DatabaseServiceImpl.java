@@ -2,7 +2,6 @@ package com.example.database;
 
 import com.example.entity.File;
 import com.example.entity.User;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
 private final String Driver = "com.mysql.jdbc.Driver";
 private Connection connection = null;
-private final String URL = "";
+private final String URL = "jdbc:mysql://localhost:3306/";
 
     public DatabaseServiceImpl()
     {
@@ -48,6 +47,8 @@ private final String URL = "";
 
         ResultSet resultSet = st.executeQuery(query);
 
+        st.close();
+
         if(resultSet.next())
         {
             return true;
@@ -62,7 +63,7 @@ private final String URL = "";
     public void saveUser(User user) throws SQLException {
         Statement st = connection.createStatement();
 
-        String saveUserQuery = "INSERT INTO user (user_id, mail, password, registrationDate) VALUES " +
+        String saveUserQuery = "INSERT INTO user ( mail, password, registrationDate) VALUES " +
                 "('" + user.getMail() + "', '"+ user.getPassword() + "', CURDATE());";
 
         st.executeUpdate(saveUserQuery);
@@ -89,6 +90,8 @@ private final String URL = "";
 
         ResultSet resultSet = st.executeQuery(query);
 
+        st.close();
+
         return this.mapUserObject(resultSet);
     }
 
@@ -105,7 +108,22 @@ private final String URL = "";
             return true;
         }
 
+        st.close();
+
         return false;
+    }
+
+    @Override
+    public void saveFile(File file) throws SQLException {
+        Statement st = connection.createStatement();
+
+        String query = "INSERT INTO file (fk_owner_id, name, extension, size, uploadDate) VALUES " +
+                "('" + file.getOwner().getId() + "', '"+ file.getName()+ "', '" + file.getExtension()
+                + "', '" + file.getSize() + "', CURDATE());";
+
+        st.executeUpdate(query);
+
+        st.close();
     }
 
     @Override
@@ -115,6 +133,8 @@ private final String URL = "";
         String query = "SELECT f.* FROM file WHERE f.fk_owner_id = " + userId + ";";
 
         ResultSet resultSet = st.executeQuery(query);
+
+        st.close();
 
         return this.mapUserFiles(resultSet);
     }

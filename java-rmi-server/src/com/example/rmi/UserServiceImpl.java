@@ -22,8 +22,8 @@ public class UserServiceImpl implements UserService, Callable {
 
     private DatabaseService databaseService;
 
-    public UserServiceImpl(DatabaseServiceImpl databaseServiceImpl) {
-        this.databaseService = databaseServiceImpl;
+    public UserServiceImpl(DatabaseService databaseService) {
+        this.databaseService = databaseService;
     }
 
     public String call() throws RemoteException {
