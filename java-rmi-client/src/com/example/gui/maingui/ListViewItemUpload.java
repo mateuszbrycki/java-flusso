@@ -18,13 +18,16 @@ public class ListViewItemUpload extends HBox {
     private Button deleteButtonItem;
     private File file;
     private Label label;
+
     static ArrayList<File> listFileToSend = new ArrayList<>();
 
     public ListViewItemUpload(File file) {
         super();
         this.file = file;
         listFileToSend.add(file);
+        Image imageFile = new Image("file:java-rmi-client/media/text-x-generic.png");
         label = new Label(file.getAbsolutePath());
+        label.setGraphic(new ImageView(imageFile));
         label.getStyleClass().add("blacklabel");
         label.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(label, Priority.ALWAYS);

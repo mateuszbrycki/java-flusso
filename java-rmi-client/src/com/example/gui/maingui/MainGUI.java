@@ -40,7 +40,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     @FXML
     ListView<ListViewItemUpload> listViewDownload;
 
-    ObservableList<ListViewItemUpload> listViewData;
+    ObservableList<ListViewItemUpload> listViewDataUpload;
     static List<File> fileList;
 
     private Desktop desktop = Desktop.getDesktop();
@@ -93,8 +93,8 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
         fileList = fileChooser.showOpenMultipleDialog(stage);
         if (fileList != null) {
             for (File file : fileList) {
-                listViewData.add(new ListViewItemUpload(file));
-                listViewUpload.setItems(listViewData);
+                listViewDataUpload.add(new ListViewItemUpload(file));
+                listViewUpload.setItems(listViewDataUpload);
                 listViewUpload.getEditingIndex();
             }
         }
@@ -112,7 +112,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        listViewData = FXCollections.observableArrayList();
+        listViewDataUpload = FXCollections.observableArrayList();
 
     }
 
