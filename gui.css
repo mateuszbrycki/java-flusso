@@ -13,7 +13,6 @@
 #pane{
     -fx-background-color: linear-gradient(#383838, #383832);
     -fx-background-repeat: stretch;
-    -fx-background-size: 600 350;
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
@@ -31,4 +30,52 @@
 .text-field
 {
     -fx-background-radius: 20;
+}
+.menu-bar
+{
+    -fx-background-color: black;
+    -fx-text-fill: #e8e8e8;
+}
+.menu-item
+{
+    -fx-background-color: black;
+    -fx-text-fill: #e8e8e8;
+}
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#328BDB 0%, #207BCF 25%, #1973C9 75%, #0A65BF 100%);
+    -fx-text-fill: black;
+}
+
+.list-cell:even { /* <=== changed to even */
+    -fx-background-color: lightgray;
+    -fx-text-fill: black;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #0093ff;
+    -fx-text-fill: black;
+}
+.blacklabel
+{
+    -fx-text-fill: black;
+}
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}
+.list-cell:empty {
+    -fx-background-color: white;
+}
+.table-row-cell:empty {
+    -fx-background-color: white;
+}
+.table-row-cell:cancel{
+    -fx-background-color: white;
+}
+
+.list-cell:cancel {
+    -fx-background-color: white;
+}
+
+.table-row-cell:cancel .table-cell {
+    -fx-border-width: 0px;
 }

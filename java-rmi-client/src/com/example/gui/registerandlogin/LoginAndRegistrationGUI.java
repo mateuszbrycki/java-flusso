@@ -2,18 +2,14 @@ package com.example.gui.registerandlogin;/**
  * Created by Brolly on 22.12.2015.
  */
 
-import com.example.gui.registerandlogin.validation.PasswordTextFieldValidator;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 
 public class LoginAndRegistrationGUI extends Application implements EventHandler<ActionEvent> {
@@ -42,14 +38,6 @@ public class LoginAndRegistrationGUI extends Application implements EventHandler
         window.show();
 
     }
-
-    private void getCSS(Scene scene)
-    {
-        File f = new File("gui.css");
-        scene.getStylesheets().clear();
-        scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
-    }
-
 
     private void closeProgram()
     {
