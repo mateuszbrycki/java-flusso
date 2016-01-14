@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -84,11 +85,17 @@
                      <content>
                         <ListView fx:id="listViewUpload" prefHeight="450.0" prefWidth="600.0" />
                      </content>
+                     <graphic>
+                        <ImageView fx:id="imageUploadTab" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
                   </Tab>
                 <Tab text="Download">
                      <content>
                         <ListView fx:id="listViewDownload" prefHeight="200.0" prefWidth="200.0" />
                      </content>
+                     <graphic>
+                              <ImageView fx:id="imageDownloadTab" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
                   </Tab>
               </tabs>
             </TabPane>

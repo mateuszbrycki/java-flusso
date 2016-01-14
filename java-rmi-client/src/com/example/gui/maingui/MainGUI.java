@@ -17,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -39,6 +41,10 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     ListView<ListViewItemUpload> listViewUpload;
     @FXML
     ListView<ListViewItemUpload> listViewDownload;
+    @FXML
+    ImageView imageUploadTab;
+    @FXML
+    ImageView imageDownloadTab;
 
     ObservableList<ListViewItemUpload> listViewDataUpload;
     static List<File> fileList;
@@ -113,7 +119,8 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         listViewDataUpload = FXCollections.observableArrayList();
-
+        imageDownloadTab.setImage(new Image("file:java-rmi-client/media/cloud-download.png"));
+        imageUploadTab.setImage(new Image("file:java-rmi-client/media/cloud-upload.png"));
     }
 
 
