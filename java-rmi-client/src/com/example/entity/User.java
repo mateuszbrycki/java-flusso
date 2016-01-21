@@ -15,6 +15,12 @@ public class User {
 
     private Date registrationDate;
 
+    public User(String mail, String password, Date registrationDate) {
+        this.mail = mail;
+        this.password = password;
+        this.registrationDate = registrationDate;
+    }
+
     public Integer getId() {
         return id;
     }
