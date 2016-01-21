@@ -38,11 +38,12 @@ public class ConfirmBox {
 
         HBox layout = new HBox(10);
         layout.getChildren().addAll(label, yesButton, noButton);
-
+        layout.setId("blackscene");
 
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
+        Utils.getSource(scene, "gui.css");
         window.setScene(scene);
         window.showAndWait();
 
