@@ -16,11 +16,11 @@ import java.util.Date;
 public class Controller {
     public javafx.scene.control.TextField loginFromLogin;
     public javafx.scene.control.PasswordField passwordFromLogin;
-
     public javafx.scene.control.TextField loginFromRegister;
     public javafx.scene.control.TextField  mailFromRegister;
     public javafx.scene.control.PasswordField passwordFromRegister;
     public javafx.scene.control.PasswordField repeatFromRegister;
+
     public UserRepository userRepository = new UserRepository();
 
     public void loginButtonClicked() throws Exception {
