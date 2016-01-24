@@ -1,6 +1,6 @@
 package com.example.database;
 
-import com.example.entity.File;
+import com.example.entity.UserFile;
 import com.example.entity.User;
 
 import java.sql.SQLException;
@@ -21,7 +21,7 @@ public interface DatabaseService {
 
     public Boolean checkIfMailExists(String mail) throws SQLException;
 
-    public void saveFile(File file) throws SQLException;
+    public void saveFile(UserFile userFile) throws SQLException;
 
-    public List<File> findUserFiles(Integer userId) throws SQLException;
+    public List<UserFile> findUserFiles(Integer userId) throws SQLException;
 }

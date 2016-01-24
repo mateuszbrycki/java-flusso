@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * File entity
  */
-public class File {
+public class UserFile {
 
     private Integer id;
 
@@ -16,8 +16,6 @@ public class File {
     private User owner;
 
     private Integer size;
-
-    private String extension;
 
     public Integer getId() {
         return id;
@@ -54,8 +52,4 @@ public class File {
     public Integer getSize() { return size; }
 
     public void setSize(Integer size) { this.size = size; }
-
-    public String getExtension() { return extension; }
-
-    public void setExtension(String extension) { this.extension = extension; }
 }

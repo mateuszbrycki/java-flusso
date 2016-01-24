@@ -2,10 +2,9 @@ package com.example.rmi;
 
 import com.example.database.DatabaseService;
 import com.example.database.DatabaseServiceImpl;
-import com.example.entity.File;
+import com.example.entity.UserFile;
 import com.example.entity.User;
 import com.example.entity.response.ResponseEntity;
-
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -90,10 +89,10 @@ public class UserServiceImpl implements UserService, Callable {
      * @param userId user id
      * @return user files list
      */
-    public List<File> getUserFiles(Integer userId) throws SQLException {
+    public List<UserFile> getUserFiles(Integer userId) throws SQLException {
 
         //TODO MBryzik - pobranie i zmapowanie plik�w uzytkownika
-        List<File> userFiles = databaseService.findUserFiles(userId);
+        List<UserFile> userFiles = databaseService.findUserFiles(userId);
 
         return userFiles;
     }
