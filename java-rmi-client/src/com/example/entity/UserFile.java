@@ -3,9 +3,9 @@ package com.example.entity;
 import java.util.Date;
 
 /**
- * File entity
+ * UserFile entity
  */
-public class File {
+public class UserFile {
 
     private Integer id;
 
