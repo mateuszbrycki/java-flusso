@@ -60,7 +60,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
 
         Parent root = FXMLLoader.load(getClass().getResource("main_gui.fxml"));
         stage = primaryStage;
-        stage.setTitle("Fusso");
+        stage.setTitle("Flusso");
         stage.setOnCloseRequest(e -> {
             e.consume();
             closeProgram();

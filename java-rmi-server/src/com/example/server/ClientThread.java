@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.Callable;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -23,6 +24,8 @@ public class ClientThread implements Callable<String> {
     private Lock lock;
     private BufferedReader bufferedReader;
     private DatabaseService databaseService;
+    private Scanner scanner;
+    private PrintWriter printWriter;
 
     private static final String DOWNLOAD = "DOWNLOAD";
     private static final String UPLOAD = "UPLOAD";
@@ -43,9 +46,18 @@ public class ClientThread implements Callable<String> {
             OutputStream outputStream = socket.getOutputStream();
 
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            scanner = new Scanner(inputStream);
+            String command = "";
 
-            String command = bufferedReader.readLine();
-            this.ID = Integer.parseInt(bufferedReader.readLine());
+            if(this.scanner.hasNextLine()) {
+                command = scanner.nextLine();
+                System.out.println(command);
+            }
+
+            if(this.scanner.hasNextLine()) {
+                this.ID = Integer.parseInt(this.scanner.nextLine());
+                System.out.println(this.ID);
+            }
 
                 if(command.equals(ClientThread.DOWNLOAD)) {
 
@@ -76,8 +88,8 @@ public class ClientThread implements Callable<String> {
      * @throws IOException
      */
     private void downloadFiles(OutputStream outputStream, InputStream inputstream) throws IOException, ClassNotFoundException {
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream((new BufferedOutputStream(outputStream)));
-        ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(inputstream));
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+        ObjectInputStream objectInputStream = new ObjectInputStream(inputstream);
 
         List<UserFile> filesToDownload = (List<UserFile>) objectInputStream.readObject();
         List<File> files = new ArrayList<>();
@@ -99,12 +111,16 @@ public class ClientThread implements Callable<String> {
      * @throws IOException
      */
     private void uploadFiles(InputStream inputStream, Integer ID) throws IOException, ClassNotFoundException, SQLException {
-        ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(inputStream));
+        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
         Packet packet = (Packet) objectInputStream.readObject();
+
+        System.out.println("upload after packet");
         List<Packet.FileContent> files = packet.getFileContentList();
 
         this.saveUploadedFiles(files, ID);
+
+        objectInputStream.close();
     }
 
     /**

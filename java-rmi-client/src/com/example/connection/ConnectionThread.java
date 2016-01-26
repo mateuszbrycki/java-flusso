@@ -50,16 +50,21 @@ public class ConnectionThread implements Callable<String> {
     public String call() {
 
         try {
-            this.socket = new Socket(InetAddress.getLocalHost(), Main.ConnectionPort);
-            InputStream inputStream = this.socket.getInputStream();
-            OutputStream outputStream = this.socket.getOutputStream();
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
 
-            //wysłanie polecenia i id użytkownika
-            bufferedWriter.write(command);
-            bufferedWriter.write(userID);
+                this.socket = new Socket(InetAddress.getLocalHost(), Main.ConnectionPort);
+                InputStream inputStream = this.socket.getInputStream();
+                OutputStream outputStream = this.socket.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
 
-                if(command.equals(DOWNLOAD)) {
+            try {
+                //wysłanie polecenia i id użytkownika
+                bufferedWriter.write(this.command + "\n");
+                bufferedWriter.flush();
+
+                bufferedWriter.write(this.userID + "\n");
+                bufferedWriter.flush();
+
+                if (command.equals(DOWNLOAD)) {
                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
                     objectOutputStream.writeObject(this.userFiles);
 
@@ -69,13 +74,22 @@ public class ConnectionThread implements Callable<String> {
 
                     this.saveDownloadedFiles(downloadedFiles);
 
-                } else if(command.equals(UPLOAD)) {
+                    objectOutputStream.close();
+                    objectInputStream.close();
+
+                } else if (this.command.equals(UPLOAD)) {
                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
                     Packet packet = new Packet(this.files);
 
                     objectOutputStream.writeObject(packet);
+                    objectOutputStream.flush();
+                    objectOutputStream.close();
                 }
+
+            } finally {
+                bufferedWriter.close();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
