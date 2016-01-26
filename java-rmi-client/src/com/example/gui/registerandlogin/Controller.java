@@ -39,12 +39,11 @@ public class Controller {
             PasswordTextFieldValidator.notTheSamePassword(passwordFromRegister, repeatFromRegister);
             user = new User(mailFromRegister.getText(), passwordFromRegister.getText(), new Date());
             userRepository.registerUser(user);
-
+            changeWindowToMain();
         } catch (RegisterException e) {
             AlertBox.display("Something was wrong", "Form was filled not in a proper way");
         }
-        changeWindowToMain();
-
+        
     }
 
     public void changeWindowToMain() throws IOException {
