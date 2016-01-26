@@ -106,6 +106,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
         ArrayList<File> listToSend = new ArrayList<>(ListViewItemUpload.listFileToSend) ;
         for(int i =0;i<ListViewItemUpload.listFileToSend.size();i++)
             listToSend.add(ListViewItemUpload.listFileToSend.get(i));
+        System.out.println(listToSend);
         ConnectionThread.uploadFiles(listToSend, Controller.user.getId());
         eraseTreeViewUpload();
     }
