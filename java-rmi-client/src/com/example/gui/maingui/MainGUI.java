@@ -103,7 +103,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     public void sendFileButtonClicked() {
         System.out.println(ListViewItemUpload.listFileToSend);
         System.out.println(Controller.user.getId());
-        ArrayList<File> listToSend = new ArrayList<>(ListViewItemUpload.listFileToSend) ;
+        ArrayList<File> listToSend = new ArrayList<>() ;
         for(int i =0;i<ListViewItemUpload.listFileToSend.size();i++)
             listToSend.add(ListViewItemUpload.listFileToSend.get(i));
         System.out.println(listToSend);
@@ -112,6 +112,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     }
 
     public void refreshButtonClicked() throws Exception {
+        System.out.println(Controller.user.getId());
         inCloudFileList = userRepository.getUserFiles(Controller.user.getId());
         System.out.println(inCloudFileList);
 
