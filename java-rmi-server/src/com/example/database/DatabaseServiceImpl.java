@@ -155,6 +155,19 @@ public class DatabaseServiceImpl implements DatabaseService {
         return userFileList;
     }
 
+    @Override
+    public User getUserObject(String mail) throws SQLException {
+
+        Statement st = connection.createStatement();
+
+        String query = "SELECT u.* FROM user u WHERE u.mail = '" + mail + "';";
+
+        ResultSet resultSet = st.executeQuery(query);
+
+        return this.mapUserObject(resultSet);
+    }
+
+
     private User mapUserObject(ResultSet resultSet) throws SQLException {
 
         if(resultSet.next()) {
