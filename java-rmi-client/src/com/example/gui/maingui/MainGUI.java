@@ -40,7 +40,8 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     static Stage stage;
     @FXML Label userName;
     @FXML ImageView logoView;
-    @FXML ListView<ListViewItemUpload> listViewUpload, listViewDownload;
+    @FXML ListView<ListViewItemUpload> listViewUpload;
+    @FXML ListView<ListViewItemDownload> listViewDownload;
     @FXML ImageView imageUploadTab, imageDownloadTab;
     @FXML  javafx.scene.control.Button logoutButton;
     @FXML javafx.scene.control.Button refreshButton;
@@ -172,6 +173,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
         logoView.setImage(new Image("file:java-rmi-client/media/fusso-logo.png"));
         refreshButton.setGraphic(new ImageView(new Image("file:java-rmi-client/media/refresh.png")));
         userName.setText(Controller.user.getMail());
+        listViewDataDownload = FXCollections.observableArrayList();
     }
 
 
