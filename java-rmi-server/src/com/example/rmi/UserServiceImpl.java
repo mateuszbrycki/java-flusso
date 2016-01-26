@@ -6,6 +6,7 @@ import com.example.entity.File;
 import com.example.entity.User;
 import com.example.entity.response.ResponseEntity;
 
+import javax.naming.NamingException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -18,11 +19,13 @@ import java.util.concurrent.Callable;
  * UserService and Callable interface implementation.
  * Class should be ran as thread (Callable) in server main method.
  */
-public class UserServiceImpl implements UserService, Callable {
+public class UserServiceImpl extends UnicastRemoteObject implements UserService, Callable {
 
     private DatabaseService databaseService;
+    private static Integer serverPort = 1099;
 
-    public UserServiceImpl(DatabaseService databaseService) {
+    public UserServiceImpl(DatabaseService databaseService) throws RemoteException {
+        super(UserServiceImpl.serverPort);
         this.databaseService = databaseService;
     }
 
@@ -32,11 +35,17 @@ public class UserServiceImpl implements UserService, Callable {
             System.setSecurityManager(new SecurityManager());
         }
 
-        UserService stub = (UserService) UnicastRemoteObject.exportObject(this, 0);
+        /*UserService stub = (UserService) UnicastRemoteObject.exportObject(this, 0);
         Registry registry = LocateRegistry.getRegistry();
-        registry.rebind("rmiserver", stub);
+        registry.rebind("rmiserver", stub);*/
 
-        System.out.println("Server started..");
+        try {
+            Registry reg = LocateRegistry.createRegistry(UserServiceImpl.serverPort);
+            reg.rebind("rmiserver", this);
+            System.out.println("Server started..");
+        } catch(RemoteException e) {
+            e.printStackTrace();
+        }
 
         return "RMI server stopped.";
 
