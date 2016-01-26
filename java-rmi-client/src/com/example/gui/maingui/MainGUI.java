@@ -29,6 +29,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -36,7 +37,7 @@ import java.util.ResourceBundle;
 public class MainGUI extends Application implements EventHandler<ActionEvent>, Initializable {
 
     final FileChooser fileChooser = new FileChooser();
-    Stage stage;
+    static Stage stage;
     @FXML Label userName;
     @FXML ImageView logoView;
     @FXML ListView<ListViewItemUpload> listViewUpload, listViewDownload;
@@ -102,7 +103,11 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     public void sendFileButtonClicked() {
         System.out.println(ListViewItemUpload.listFileToSend);
         System.out.println(Controller.user.getId());
-        ConnectionThread.uploadFiles(ListViewItemUpload.listFileToSend, Controller.user.getId());
+        ArrayList<File> listToSend = new ArrayList<>(ListViewItemUpload.listFileToSend) ;
+        for(int i =0;i<ListViewItemUpload.listFileToSend.size();i++)
+            listToSend.add(ListViewItemUpload.listFileToSend.get(i));
+        System.out.println(listToSend);
+        ConnectionThread.uploadFiles(listToSend, Controller.user.getId());
         eraseTreeViewUpload();
     }
 
