@@ -143,7 +143,9 @@ public class ClientThread implements Callable<String> {
             fileOutputStream.write(fileBytes);
 
             //zapis pliku użytkownika do bazy
-            databaseService.saveFile(this.getUserFileObject(file, ID));
+            if(!databaseService.checkIfFileExists(file.getName())) {
+                databaseService.saveFile(this.getUserFileObject(file, ID));
+            }
         }
     }
 

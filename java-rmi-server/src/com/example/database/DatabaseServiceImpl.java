@@ -64,12 +64,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 
         Boolean resultSetNext = resultSet.next();
         st.close();
-        if(resultSetNext)
-        {
+        if(resultSetNext) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
 
@@ -118,8 +115,7 @@ public class DatabaseServiceImpl implements DatabaseService {
         String query = "SELECT u.user_id FROM user u WHERE u.mail = '" + mail + "';";
         ResultSet resultSet = st.executeQuery(query);
 
-        if(resultSet.next())
-        {
+        if(resultSet.next()) {
             return true;
         }
 
@@ -165,6 +161,23 @@ public class DatabaseServiceImpl implements DatabaseService {
         ResultSet resultSet = st.executeQuery(query);
 
         return this.mapUserObject(resultSet);
+    }
+
+    @Override
+    public Boolean checkIfFileExists(String filename) throws SQLException {
+        Statement st = connection.createStatement();
+
+        String query = "SELECT f.name FROM file f WHERE f.name = '" + filename + "';";
+
+        ResultSet resultSet = st.executeQuery(query);
+
+        if(resultSet.next()) {
+            return true;
+        }
+
+        st.close();
+
+        return false;
     }
 
 

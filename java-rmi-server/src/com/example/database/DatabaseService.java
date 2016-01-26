@@ -26,4 +26,6 @@ public interface DatabaseService {
     public List<UserFile> findUserFiles(Integer userId) throws SQLException;
 
     public User getUserObject(String mail) throws SQLException;
+
+    public Boolean checkIfFileExists(String filename) throws SQLException;
 }
