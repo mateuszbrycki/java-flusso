@@ -1,7 +1,8 @@
 package com.example.database;
 
-import com.example.entity.File;
 import com.example.entity.User;
+import com.example.entity.UserFile;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,12 +117,12 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public void saveFile(File file) throws SQLException {
+    public void saveFile(UserFile file) throws SQLException {
         Statement st = connection.createStatement();
 
-        String query = "INSERT INTO file (fk_owner_id, name, extension, size, uploadDate) VALUES " +
-                "('" + file.getOwner().getId() + "', '"+ file.getName()+ "', '" + file.getExtension()
-                + "', '" + file.getSize() + "', CURDATE());";
+        String query = "INSERT INTO file (fk_owner_id, name, size, uploadDate) VALUES " +
+                "('" + file.getOwner().getId() + "', '"+ file.getName() + "', '" +
+                file.getSize() + "', CURDATE());";
 
         st.executeUpdate(query);
 
@@ -129,7 +130,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public List<File> findUserFiles(Integer userId) throws SQLException {
+    public List<UserFile> findUserFiles(Integer userId) throws SQLException {
         Statement st = connection.createStatement();
 
         String query = "SELECT f.* FROM file WHERE f.fk_owner_id = " + userId + ";";
@@ -156,21 +157,20 @@ public class DatabaseServiceImpl implements DatabaseService {
         return null;
     }
 
-    private List<File> mapUserFiles(ResultSet resultSet) throws SQLException {
-        List<File> userFiles = new ArrayList<>();
+    private List<UserFile> mapUserFiles(ResultSet resultSet) throws SQLException {
+        List<UserFile> userFiles = new ArrayList<>();
 
             while(resultSet.next())
             {
-                File file = new File();
+                UserFile userFile = new UserFile();
 
-                    file.setId( resultSet.getInt("file_id"));
-                    file.setName( resultSet.getString("name"));
-                    file.setExtension( resultSet.getString("extension"));
-                    file.setSize( resultSet.getInt("size"));
-                    file.setUploadDate( resultSet.getDate("uploadDate"));
-                    file.setOwner( this.findUserById( resultSet.getInt("fk_owner_id")));
+                    userFile.setId( resultSet.getInt("file_id"));
+                    userFile.setName( resultSet.getString("name"));
+                    userFile.setSize( resultSet.getInt("size"));
+                    userFile.setUploadDate( resultSet.getDate("uploadDate"));
+                    userFile.setOwner( this.findUserById( resultSet.getInt("fk_owner_id")));
 
-                userFiles.add(file);
+                userFiles.add(userFile);
             }
 
         return userFiles;

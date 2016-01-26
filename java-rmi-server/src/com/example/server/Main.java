@@ -15,12 +15,12 @@ import java.util.concurrent.Executors;
  */
 public class Main {
 
-    public static Integer ConnectionPort = null;
+    public static Integer ConnectionPort = 8080;
     public static Integer numberOfClients = 8;
 
     public static void main(String[] args) throws IOException {
 
-        ServerSocket serverSocket = new ServerSocket(Main.ConnectionPort);
+        ServerSocket serverSocket;
 
         ExecutorService executor = Executors.newFixedThreadPool(Main.numberOfClients);
         List<ClientFutureTask> clientFutureTasks = new ArrayList<>();
@@ -44,26 +44,6 @@ public class Main {
                     catch(IOException e) {
                         e.printStackTrace();
                     }
-
-                    Iterator<ClientFutureTask> iterator = clientFutureTasks.iterator();
-
-                        while(iterator.hasNext()) {
-                                ClientFutureTask clientFutureTaskResult = iterator.next();
-
-                                try {
-
-                                    if (clientFutureTaskResult.isDone()) {
-                                        System.out.println(clientFutureTaskResult.get());
-                                        iterator.remove();
-                                    }
-                                }
-                                catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                catch (ExecutionException e) {
-                                    e.printStackTrace();
-                                }
-                        }
                 }
             }
             catch (IOException e) {

@@ -3,9 +3,9 @@ package com.example.entity;
 import java.util.Date;
 
 /**
- * File entity
+ * UserFile entity
  */
-public class File {
+public class UserFile {
 
     private Integer id;
 
@@ -14,10 +14,6 @@ public class File {
     private Date uploadDate;
 
     private User owner;
-
-    private Integer size;
-
-    private String extension;
 
     public Integer getId() {
         return id;
@@ -50,12 +46,4 @@ public class File {
     public void setOwner(User owner) {
         this.owner = owner;
     }
-
-    public Integer getSize() { return size; }
-
-    public void setSize(Integer size) { this.size = size; }
-
-    public String getExtension() { return extension; }
-
-    public void setExtension(String extension) { this.extension = extension; }
 }

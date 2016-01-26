@@ -1,6 +1,6 @@
 package com.example.rmi;
 
-import com.example.entity.File;
+import com.example.entity.UserFile;
 import com.example.entity.User;
 import com.example.entity.response.ResponseEntity;
 
@@ -43,7 +43,7 @@ public class UserRepository {
      * @return user files list
      * @throws Exception
      */
-    public List<File> getUserFiles(Integer userId) throws Exception {
+    public List<UserFile> getUserFiles(Integer userId) throws Exception {
         return UserRepository.getUserService().getUserFiles(userId);
     }
 

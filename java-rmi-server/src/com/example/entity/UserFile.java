@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * File entity
  */
-public class File {
+public class UserFile {
 
     private Integer id;
 
@@ -14,6 +14,8 @@ public class File {
     private Date uploadDate;
 
     private User owner;
+
+    private Integer size;
 
     public Integer getId() {
         return id;
@@ -46,4 +48,8 @@ public class File {
     public void setOwner(User owner) {
         this.owner = owner;
     }
+
+    public Integer getSize() { return size; }
+
+    public void setSize(Integer size) { this.size = size; }
 }

@@ -1,6 +1,6 @@
 package com.example.rmi;
 
-import com.example.entity.File;
+import com.example.entity.UserFile;
 import com.example.entity.User;
 import com.example.entity.response.ResponseEntity;
 
@@ -16,6 +16,6 @@ public interface UserService extends Remote {
     ResponseEntity<Boolean, Object> loginUser(String mail, String password) throws SQLException;
     ResponseEntity<Boolean, Object> registerUser(User user) throws SQLException;
 
-    List<File> getUserFiles(Integer userId) throws SQLException;
+    List<UserFile> getUserFiles(Integer userId) throws SQLException;
 
 }
