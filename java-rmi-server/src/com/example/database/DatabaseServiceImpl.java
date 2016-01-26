@@ -63,7 +63,7 @@ public class DatabaseServiceImpl implements DatabaseService {
         ResultSet resultSet = st.executeQuery(query);
 
         Boolean resultSetNext = resultSet.next();
-         st.close();
+        st.close();
         if(resultSetNext)
         {
             return true;

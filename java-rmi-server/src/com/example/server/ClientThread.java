@@ -22,10 +22,7 @@ public class ClientThread implements Callable<String> {
     private Socket socket = null;
     private Integer ID;
     private Lock lock;
-    private BufferedReader bufferedReader;
     private DatabaseService databaseService;
-    private Scanner scanner;
-    private PrintWriter printWriter;
 
     private static final String DOWNLOAD = "DOWNLOAD";
     private static final String UPLOAD = "UPLOAD";
@@ -45,27 +42,21 @@ public class ClientThread implements Callable<String> {
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
 
-            bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            scanner = new Scanner(inputStream);
-            String command = "";
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
-            if(this.scanner.hasNextLine()) {
-                command = scanner.nextLine();
-                System.out.println(command);
-            }
+            String command = (String) objectInputStream.readObject();
+            this.ID = objectInputStream.readInt();
 
-            if(this.scanner.hasNextLine()) {
-                this.ID = Integer.parseInt(this.scanner.nextLine());
-                System.out.println(this.ID);
-            }
+            System.out.println(command + " " + this.ID);
 
                 if(command.equals(ClientThread.DOWNLOAD)) {
 
-                    this.downloadFiles(outputStream, inputStream);
+                    this.downloadFiles(objectOutputStream, objectInputStream);
 
                 } else if(command.equals(ClientThread.UPLOAD)) {
 
-                    this.uploadFiles(inputStream, ID);
+                    this.uploadFiles(objectInputStream, ID);
 
                 }
 
@@ -84,12 +75,10 @@ public class ClientThread implements Callable<String> {
 
     /**
      * Metoda odpowiedzialna za pobieranie plików z serwera
-     * @param outputStream strumień wyjściowy
+     * @param objectOutputStream strumień wyjściowy
      * @throws IOException
      */
-    private void downloadFiles(OutputStream outputStream, InputStream inputstream) throws IOException, ClassNotFoundException {
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-        ObjectInputStream objectInputStream = new ObjectInputStream(inputstream);
+    private void downloadFiles(ObjectOutputStream objectOutputStream, ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
 
         List<UserFile> filesToDownload = (List<UserFile>) objectInputStream.readObject();
         List<File> files = new ArrayList<>();
@@ -107,11 +96,10 @@ public class ClientThread implements Callable<String> {
 
     /**
      * Metoda odpowiedzialna za wysyłanie plików na serwer
-     * @param inputStream strumień wejściowy
+     * @param objectInputStream strumień wejściowy
      * @throws IOException
      */
-    private void uploadFiles(InputStream inputStream, Integer ID) throws IOException, ClassNotFoundException, SQLException {
-        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+    private void uploadFiles(ObjectInputStream objectInputStream, Integer ID) throws IOException, ClassNotFoundException, SQLException {
 
         Packet packet = (Packet) objectInputStream.readObject();
 
