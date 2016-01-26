@@ -5,6 +5,7 @@ import com.example.entity.UserFile;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -18,6 +19,7 @@ public class ConnectionThread implements Callable<String> {
 
     private static final String DOWNLOAD = "DOWNLOAD";
     private static final String UPLOAD = "UPLOAD";
+    private static String FILE_TO_SAVE_NAME = "";
     private List<UserFile> userFiles;
     private List<File> files;
     private Integer userID;
@@ -110,11 +112,17 @@ public class ConnectionThread implements Callable<String> {
      * @param userFiles
      * @param userID
      */
+    public static void downloadFiles(List<UserFile> userFiles, Integer userID, String fileToSaveName) {
+
+        ConnectionThread.FILE_TO_SAVE_NAME = fileToSaveName;
+        downloadFiles(userFiles, userID);
+
+    }
+
     public static void downloadFiles(List<UserFile> userFiles, Integer userID) {
         ConnectionThread connectionThread = new ConnectionThread("DOWNLOAD", userFiles, userID);
 
         ConnectionFutureTask connectionFutureTask = new ConnectionFutureTask(connectionThread);
-
         ExecutorService executor = Executors.newCachedThreadPool();
         executor.execute(connectionFutureTask);
     }
@@ -144,7 +152,7 @@ public class ConnectionThread implements Callable<String> {
             File file = fileContent.getFile();
             byte[] fileBytes = fileContent.getFileBytes();
             System.out.println("File name " + file.getName());
-            FileOutputStream fileOutputStream = new FileOutputStream( "downloads/" + file.getName());
+            FileOutputStream fileOutputStream = new FileOutputStream(ConnectionThread.FILE_TO_SAVE_NAME);
             fileOutputStream.write(fileBytes);
         }
     }
