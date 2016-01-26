@@ -1,5 +1,6 @@
 package com.example.server;
 
+import com.example.connection.Packet;
 import com.example.database.DatabaseService;
 import com.example.database.DatabaseServiceImpl;
 import com.example.entity.UserFile;
@@ -9,7 +10,6 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.Callable;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -42,10 +42,13 @@ public class ClientThread implements Callable<String> {
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
 
+            System.out.println("Initializing streams");
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            System.out.println("Streams initialized");
 
             String command = (String) objectInputStream.readObject();
+            System.out.println("Received command: " + command);
             this.ID = objectInputStream.readInt();
 
             System.out.println(command + " " + this.ID);
@@ -100,12 +103,13 @@ public class ClientThread implements Callable<String> {
      * @throws IOException
      */
     private void uploadFiles(ObjectInputStream objectInputStream, Integer ID) throws IOException, ClassNotFoundException, SQLException {
-
+        System.out.println("uploadFiles method");
         Packet packet = (Packet) objectInputStream.readObject();
 
         System.out.println("upload after packet");
         List<Packet.FileContent> files = packet.getFileContentList();
 
+        System.out.println("Files list size " + files.size());
         this.saveUploadedFiles(files, ID);
 
         objectInputStream.close();
@@ -120,8 +124,10 @@ public class ClientThread implements Callable<String> {
      */
     private void saveUploadedFiles(List<Packet.FileContent> files, Integer ID) throws IOException, SQLException {
 
-        for(Packet.FileContent fileContent: files) {
+        for(Packet.FileContent fileContent : files) {
+            System.out.println("Retrieving file.");
             File file = fileContent.getFile();
+            System.out.println("Saving file: " + file.getName());
             byte[] fileBytes = fileContent.getFileBytes();
             FileOutputStream fileOutputStream = new FileOutputStream(file.getName());
             fileOutputStream.write(fileBytes);

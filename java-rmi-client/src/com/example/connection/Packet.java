@@ -8,6 +8,7 @@ import java.util.List;
  * Created by Mateusz on 24.01.2016.
  */
 public class Packet implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<FileContent> files = new ArrayList<>();
 
     public Packet(List<File> filesToSend) throws IOException {
@@ -27,6 +28,8 @@ public class Packet implements Serializable {
         for(File file: listOfFiles){
             this.files.add(new FileContent(file));
         }
+
+        System.out.println("Files list size: " + this.files.size());
     }
 
     /**
@@ -35,6 +38,7 @@ public class Packet implements Serializable {
      * zawartość pliku (tablica byte[])
      */
     public class FileContent implements Serializable {
+        private static final long serialVersionUID = 1L;
         private byte[] fileBytes;
         private File file;
 

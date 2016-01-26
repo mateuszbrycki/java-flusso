@@ -56,13 +56,18 @@ public class ConnectionThread implements Callable<String> {
                 InputStream inputStream = this.socket.getInputStream();
                 OutputStream outputStream = this.socket.getOutputStream();
 
-                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+                System.out.println("Initializing objectOutputStream.");
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
+                System.out.println("Initializing objectInputStream.");
+                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+
+                System.out.println("Sending command.");
                 //wysłanie polecenia i id użytkownika
                 objectOutputStream.writeObject(this.command);
                 objectOutputStream.flush();
 
+                System.out.println("Sending user id.");
                 objectOutputStream.writeInt(this.userID);
                 objectOutputStream.flush();
 
@@ -75,17 +80,20 @@ public class ConnectionThread implements Callable<String> {
 
                     this.saveDownloadedFiles(downloadedFiles);
 
-                    objectOutputStream.close();
-                    objectInputStream.close();
+
 
                 } else if (this.command.equals(UPLOAD)) {
+
+                    System.out.println("Files list in upload branch: " + this.files.size());
 
                     Packet packet = new Packet(this.files);
 
                     objectOutputStream.writeObject(packet);
                     objectOutputStream.flush();
-                    objectOutputStream.close();
                 }
+
+            objectOutputStream.close();
+            objectInputStream.close();
 
         } catch (IOException e) {
             e.printStackTrace();

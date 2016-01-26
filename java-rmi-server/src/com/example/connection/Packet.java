@@ -1,4 +1,4 @@
-package com.example.server;
+package com.example.connection;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.List;
  * Created by Mateusz on 24.01.2016.
  */
 public class Packet implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<FileContent> files = new ArrayList<>();
 
     public Packet(List<File> filesToSend) throws IOException {
@@ -35,6 +36,7 @@ public class Packet implements Serializable {
      * zawartość pliku (tablica byte[])
      */
     public class FileContent implements Serializable {
+        private static final long serialVersionUID = 1L;
         private byte[] fileBytes;
         private File file;
 
@@ -48,7 +50,7 @@ public class Packet implements Serializable {
         }
 
         public File getFile() {
-            return this.getFile();
+            return this.file;
         }
 
         /**
