@@ -69,7 +69,6 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
         Utils.getSource(scene, "gui.css");
         stage.show();
 
-
     }
 
 

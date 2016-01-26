@@ -27,7 +27,7 @@ public class ClientThread implements Callable<String> {
     private static final String DOWNLOAD = "DOWNLOAD";
     private static final String UPLOAD = "UPLOAD";
 
-    public ClientThread(Socket socket){
+    public ClientThread(Socket socket) throws SQLException {
 
         this.socket = socket;
         this.lock = new ReentrantLock();

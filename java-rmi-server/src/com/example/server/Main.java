@@ -3,6 +3,7 @@ package com.example.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.concurrent.Executors;
  */
 public class Main {
 
-    public static Integer ConnectionPort = 8080;
+    public static Integer ConnectionPort = 8800;
     public static Integer numberOfClients = 8;
 
     public static void main(String[] args) throws IOException {
@@ -42,6 +43,8 @@ public class Main {
                         executor.execute(clientFutureTask);
                     }
                     catch(IOException e) {
+                        e.printStackTrace();
+                    } catch (SQLException e) {
                         e.printStackTrace();
                     }
                 }

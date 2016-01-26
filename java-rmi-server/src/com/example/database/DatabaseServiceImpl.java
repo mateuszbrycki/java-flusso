@@ -15,11 +15,11 @@ public class DatabaseServiceImpl implements DatabaseService {
     private final String Driver = "com.mysql.jdbc.Driver";
     private Connection connection = null;
     private final String URL = "jdbc:mysql://localhost:3306/";
-    private String username = null;
-    private String databasePassword = null;
+    private String username = "root";
+    private String databasePassword = "";
+    private static String databaseName = "flusso_database";
 
-    public DatabaseServiceImpl()
-    {
+    public DatabaseServiceImpl() throws SQLException {
         //ładowanie sterownika do bazy danych
         try {
             Class.forName(Driver).newInstance();
@@ -39,6 +39,18 @@ public class DatabaseServiceImpl implements DatabaseService {
         catch (SQLException e) {
             System.out.println("Cannot connect to database");
         }
+
+        this.chooseDatabase();
+    }
+
+    /**
+     * Metoda pozwalająca na wybranie bazy danych
+     * @throws SQLException
+     */
+    private void chooseDatabase() throws SQLException {
+        Statement st = connection.createStatement();
+
+        st.executeUpdate("USE " + DatabaseServiceImpl.databaseName + ";");
     }
 
     @Override
