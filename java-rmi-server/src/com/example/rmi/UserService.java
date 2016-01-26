@@ -19,4 +19,6 @@ public interface UserService extends Remote {
 
     List<UserFile> getUserFiles(Integer userId) throws SQLException, RemoteException;
 
+    User getUserObject(String mail) throws SQLException, RemoteException;
+
 }

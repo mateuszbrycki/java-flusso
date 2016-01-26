@@ -117,4 +117,8 @@ public class UserServiceImpl extends UnicastRemoteObject implements UserService,
 
         return userFiles;
     }
+
+    public User getUserObject(String mail) throws SQLException {
+        return databaseService.getUserObject(mail);
+    }
 }

@@ -47,6 +47,10 @@ public class UserRepository {
         return UserRepository.getUserService().getUserFiles(userId);
     }
 
+    public User getUserObject(String mail) throws Exception{
+        return UserRepository.getUserService().getUserObject(mail);
+    }
+
     public static void loadClientPolicy() {
         System.getProperty("user.dir");
         System.out.print("Client");
