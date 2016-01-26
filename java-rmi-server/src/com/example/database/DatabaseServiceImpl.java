@@ -105,10 +105,10 @@ public class DatabaseServiceImpl implements DatabaseService {
         String query = "SELECT u.* FROM user u WHERE u.user_id = " + userId + ";";
 
         ResultSet resultSet = st.executeQuery(query);
-
+        User user = this.mapUserObject(resultSet);
         st.close();
 
-        return this.mapUserObject(resultSet);
+        return user;
     }
 
     @Override

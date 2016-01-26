@@ -124,7 +124,8 @@ public class ClientThread implements Callable<String> {
      */
     private void saveUploadedFiles(List<Packet.FileContent> files, Integer ID) throws IOException, SQLException {
 
-        for(Packet.FileContent fileContent: files) {
+        for(Packet.FileContent fileContent : files) {
+            System.out.println("Retrieving file.");
             File file = fileContent.getFile();
             System.out.println("Saving file: " + file.getName());
             byte[] fileBytes = fileContent.getFileBytes();
