@@ -148,11 +148,20 @@ public class ConnectionThread implements Callable<String> {
      */
     private void saveDownloadedFiles(List<Packet.FileContent> files) throws IOException {
 
+
         for(Packet.FileContent fileContent: files) {
             File file = fileContent.getFile();
             byte[] fileBytes = fileContent.getFileBytes();
             System.out.println("File name " + file.getName());
-            FileOutputStream fileOutputStream = new FileOutputStream(ConnectionThread.FILE_TO_SAVE_NAME);
+
+            String savePath;
+            if(ConnectionThread.FILE_TO_SAVE_NAME.equals("")) {
+                savePath = "downloads/" + file.getName();
+            } else {
+                savePath = ConnectionThread.FILE_TO_SAVE_NAME;
+            }
+
+            FileOutputStream fileOutputStream = new FileOutputStream(savePath);
             fileOutputStream.write(fileBytes);
         }
     }

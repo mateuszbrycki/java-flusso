@@ -78,7 +78,7 @@ public class ListViewItemDownload extends HBox {
     private void saveFileChooser(UserFile fileFromSelect)
     {
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("All files", "*.*");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showSaveDialog(MainGUI.stage);
         List<UserFile> oneFile = Arrays.asList(fileFromSelect);
