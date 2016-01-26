@@ -124,12 +124,17 @@ public class ClientThread implements Callable<String> {
      */
     private void saveUploadedFiles(List<Packet.FileContent> files, Integer ID) throws IOException, SQLException {
 
+        String uploadPath = "uploads/"+ID;
+
         for(Packet.FileContent fileContent : files) {
             System.out.println("Retrieving file.");
             File file = fileContent.getFile();
             System.out.println("Saving file: " + file.getName());
             byte[] fileBytes = fileContent.getFileBytes();
-            FileOutputStream fileOutputStream = new FileOutputStream(file.getName());
+
+            new File(uploadPath).mkdirs();
+
+            FileOutputStream fileOutputStream = new FileOutputStream(uploadPath + "/" + file.getName());
             fileOutputStream.write(fileBytes);
 
             //zapis pliku użytkownika do bazy

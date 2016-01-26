@@ -76,11 +76,12 @@ public class ConnectionThread implements Callable<String> {
                     objectOutputStream.writeObject(this.userFiles);
 
                     Packet packet = (Packet) objectInputStream.readObject();
+                    System.out.println("Packet size " + packet.getFileContentList().size());
+
                     List<Packet.FileContent> downloadedFiles = packet.getFileContentList();
 
+                    System.out.println("Downloaded files list size " + downloadedFiles.size());
                     this.saveDownloadedFiles(downloadedFiles);
-
-
 
                 } else if (this.command.equals(UPLOAD)) {
 
@@ -142,7 +143,8 @@ public class ConnectionThread implements Callable<String> {
         for(Packet.FileContent fileContent: files) {
             File file = fileContent.getFile();
             byte[] fileBytes = fileContent.getFileBytes();
-            FileOutputStream fileOutputStream = new FileOutputStream(file.getName());
+            System.out.println("File name " + file.getName());
+            FileOutputStream fileOutputStream = new FileOutputStream( "downloads/" + file.getName());
             fileOutputStream.write(fileBytes);
         }
     }

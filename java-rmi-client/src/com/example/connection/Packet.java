@@ -52,7 +52,7 @@ public class Packet implements Serializable {
         }
 
         public File getFile() {
-            return this.getFile();
+            return this.file;
         }
 
         /**
