@@ -4,6 +4,7 @@ package com.example.gui.maingui;/**
 
 import com.example.gui.registerandlogin.ConfirmBox;
 import com.example.gui.registerandlogin.Utils;
+import com.example.rmi.UserRepository;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +17,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -33,15 +33,14 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
 
     final FileChooser fileChooser = new FileChooser();
     Stage stage;
-    @FXML
-    Label userName;
-    @FXML
-    TreeView<File> folderTree;
-    @FXML
-    ListView<ListViewItemUpload> listViewUpload, listViewDownload;
-    @FXML
-    ImageView imageUploadTab, imageDownloadTab;
+    @FXML Label userName;
+    @FXML ImageView logoView;
+    @FXML ListView<ListViewItemUpload> listViewUpload, listViewDownload;
+    @FXML ImageView imageUploadTab, imageDownloadTab;
     @FXML  javafx.scene.control.Button logoutButton;
+    @FXML javafx.scene.control.Button refreshButton;
+
+    UserRepository userRepository = new UserRepository();
 
 
     ObservableList<ListViewItemUpload> listViewDataUpload;
@@ -99,6 +98,11 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     public void sendFileButtonClicked() {
     }
 
+    public void refreshButtonClicked() throws Exception {
+//        TODO how to check userID
+        userRepository.getUserFiles(12);
+    }
+
     public void selectFilesButtonClicked() {
 
         fileList = fileChooser.showOpenMultipleDialog(stage);
@@ -126,6 +130,8 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
         listViewDataUpload = FXCollections.observableArrayList();
         imageDownloadTab.setImage(new Image("file:java-rmi-client/media/cloud-download.png"));
         imageUploadTab.setImage(new Image("file:java-rmi-client/media/cloud-upload.png"));
+        logoView.setImage(new Image("file:java-rmi-client/media/fusso-logo.png"));
+        refreshButton.setGraphic(new ImageView(new Image("file:java-rmi-client/media/refresh.png")));
     }
 
 
