@@ -22,6 +22,7 @@ public class Controller {
     public javafx.scene.control.PasswordField repeatFromRegister;
 
     public UserRepository userRepository = new UserRepository();
+    public User user;
 
     public void loginButtonClicked() throws Exception {
 //        TODO Sprawdzic zmiany w UserRepository
@@ -33,10 +34,8 @@ public class Controller {
             MailTextFieldValidator.validate(mailFromRegister);
             PasswordTextFieldValidator.validate(passwordFromRegister);
             PasswordTextFieldValidator.notTheSamePassword(passwordFromRegister, repeatFromRegister);
-//           TODO Check that not better use date as string
-//            userRepository.registerUser(new User(mailFromRegister.getText(), passwordFromRegister.getText(),
-//                    new SimpleDateFormat("yyyy/MM/dd").format(new Date())));
-            userRepository.registerUser(new User(mailFromRegister.getText(), passwordFromRegister.getText(), new Date()));
+            user = new User(mailFromRegister.getText(), passwordFromRegister.getText(), new Date());
+            userRepository.registerUser(user);
 
         } catch (RegisterException e) {
             AlertBox.display("Something was wrong", "Form was filled not in a proper way");
