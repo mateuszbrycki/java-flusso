@@ -27,6 +27,8 @@ public class ClientThread implements Callable<String> {
     private static final String DOWNLOAD = "DOWNLOAD";
     private static final String UPLOAD = "UPLOAD";
 
+    private static final String UPLOAD_PATH = "uploads";
+
     public ClientThread(Socket socket) throws SQLException {
 
         this.socket = socket;
@@ -55,7 +57,7 @@ public class ClientThread implements Callable<String> {
 
                 if(command.equals(ClientThread.DOWNLOAD)) {
 
-                    this.downloadFiles(objectOutputStream, objectInputStream);
+                    this.downloadFiles(objectOutputStream, objectInputStream, ID);
 
                 } else if(command.equals(ClientThread.UPLOAD)) {
 
@@ -81,13 +83,16 @@ public class ClientThread implements Callable<String> {
      * @param objectOutputStream strumień wyjściowy
      * @throws IOException
      */
-    private void downloadFiles(ObjectOutputStream objectOutputStream, ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
+    private void downloadFiles(ObjectOutputStream objectOutputStream, ObjectInputStream objectInputStream, Integer id) throws IOException, ClassNotFoundException {
+
+        String uploadPath = ClientThread.UPLOAD_PATH + "/" + id;
 
         List<UserFile> filesToDownload = (List<UserFile>) objectInputStream.readObject();
         List<File> files = new ArrayList<>();
 
             for(UserFile userFile: filesToDownload) {
-                files.add(new File(userFile.getName()));
+                System.out.println("Downloaded file: " + uploadPath + "/" + userFile.getName());
+                files.add(new File(uploadPath + "/" + userFile.getName()));
             }
 
         Packet packet = new Packet(files);
@@ -124,7 +129,7 @@ public class ClientThread implements Callable<String> {
      */
     private void saveUploadedFiles(List<Packet.FileContent> files, Integer ID) throws IOException, SQLException {
 
-        String uploadPath = "uploads/"+ID;
+        String uploadPath = ClientThread.UPLOAD_PATH + "/" + ID;
 
         for(Packet.FileContent fileContent : files) {
             System.out.println("Retrieving file.");
