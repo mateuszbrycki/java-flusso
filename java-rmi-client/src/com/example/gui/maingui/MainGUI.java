@@ -2,6 +2,7 @@ package com.example.gui.maingui;/**
  * Created by Brolly on 22.12.2015.
  */
 
+import com.example.connection.ConnectionThread;
 import com.example.gui.registerandlogin.ConfirmBox;
 import com.example.gui.registerandlogin.Utils;
 import com.example.rmi.UserRepository;
@@ -70,22 +71,6 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
 
     }
 
-    public void generateMainGUI() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("main_gui.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle("Fusso");
-        stage.setOnCloseRequest(e -> {
-            e.consume();
-            closeProgram();
-        });
-
-        Scene scene = new Scene(root, 800, 600);
-        stage.setScene(scene);
-        Utils.getSource(scene, "gui.css");
-        stage.show();
-    }
-
-
     private void closeProgram() {
         boolean answer = ConfirmBox.display("Exit", "Sure you want to exit?");
         if (answer)
@@ -110,6 +95,8 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     }
 
     public void sendFileButtonClicked() {
+        System.out.print(fileList);
+        ConnectionThread.uploadFiles(fileList, 1);
     }
 
     public void refreshButtonClicked() throws Exception {
