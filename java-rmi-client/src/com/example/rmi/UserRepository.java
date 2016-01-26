@@ -14,7 +14,7 @@ import java.util.List;
 public class UserRepository {
 
     private static UserService userService = null;
-    private static String SERVER_ADDRES = "127.0.0.1";
+    private static String SERVER_ADDRES = "localhost";
 
     /**
      * Calls server to check if user passed good mail and password
@@ -59,7 +59,7 @@ public class UserRepository {
                 System.setSecurityManager(new SecurityManager());
             }
 
-            Registry registry = LocateRegistry.getRegistry(UserRepository.SERVER_ADDRES);
+            Registry registry = LocateRegistry.getRegistry("localhost");
             UserRepository.userService = (UserService) registry.lookup("rmiserver");
         }
 

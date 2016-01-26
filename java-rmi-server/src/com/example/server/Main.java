@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 
 /**
  * Created by Mateusz on 12.01.2016.
@@ -33,6 +34,8 @@ public class Main {
 
         ExecutorService executor = Executors.newFixedThreadPool(Main.numberOfClients);
         List<ClientFutureTask> clientFutureTasks = new ArrayList<ClientFutureTask>();
+
+        executor.execute(new FutureTask(userService));
 
             try {
 

@@ -40,9 +40,10 @@ public class UserServiceImpl extends UnicastRemoteObject implements UserService,
         registry.rebind("rmiserver", stub);*/
 
         try {
+
+            System.out.println("Starting server...");
             Registry reg = LocateRegistry.createRegistry(UserServiceImpl.serverPort);
             reg.rebind("rmiserver", this);
-            System.out.println("Server started..");
         } catch(RemoteException e) {
             e.printStackTrace();
         }
