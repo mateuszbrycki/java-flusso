@@ -40,17 +40,17 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     @FXML  javafx.scene.control.Button logoutButton;
     @FXML javafx.scene.control.Button refreshButton;
 
+    String visibleLogin;
     UserRepository userRepository = new UserRepository();
-
-
     ObservableList<ListViewItemUpload> listViewDataUpload;
     static List<File> fileList;
-
     private Desktop desktop = Desktop.getDesktop();
 
-    public static void main(String[] args) {
-        launch(args);
+    public void setVisibleLogin(String VisibleLogin) {
+        this.visibleLogin = VisibleLogin;
     }
+
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -68,6 +68,21 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
         Utils.getSource(scene, "gui.css");
         stage.show();
 
+    }
+
+    public void generateMainGUI() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("main_gui.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Fusso");
+        stage.setOnCloseRequest(e -> {
+            e.consume();
+            closeProgram();
+        });
+
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        Utils.getSource(scene, "gui.css");
+        stage.show();
     }
 
 
@@ -131,6 +146,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
         imageUploadTab.setImage(new Image("file:java-rmi-client/media/cloud-upload.png"));
         logoView.setImage(new Image("file:java-rmi-client/media/fusso-logo.png"));
         refreshButton.setGraphic(new ImageView(new Image("file:java-rmi-client/media/refresh.png")));
+        userName.setText(visibleLogin);
     }
 
 
