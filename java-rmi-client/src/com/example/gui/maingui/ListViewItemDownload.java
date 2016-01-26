@@ -1,6 +1,8 @@
 package com.example.gui.maingui;
 
+import com.example.connection.ConnectionThread;
 import com.example.entity.UserFile;
+import com.example.gui.registerandlogin.Controller;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -13,7 +15,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Brolly on 13.01.2016.
@@ -37,9 +41,9 @@ public class ListViewItemDownload extends HBox {
         HBox.setHgrow(label, Priority.ALWAYS);
         dowloadButtonItem = new Button("Dowload");
         dowloadButtonItem.setOnAction(event1 -> {
-            saveFileChooser();
+            saveFileChooser(file);
             findFileToRemove(file);
-            Image imageDowload = new Image("file:java-rmi-client/media/downloaded.png");
+            Image imageDowload = new Image("file:java-rmi-client/media/dowloaded.png");
             dowloadButtonItem.setGraphic(new ImageView(imageDowload));
             dowloadButtonItem.setText("");
             dowloadButtonItem.setDisable(true);
@@ -60,12 +64,10 @@ public class ListViewItemDownload extends HBox {
         }
     }
 
-    private void SaveFile(String content, File file) {
+    private void SaveFile(File file) {
         try {
             FileWriter fileWriter = null;
-
             fileWriter = new FileWriter(file);
-            fileWriter.write(content);
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,11 +75,15 @@ public class ListViewItemDownload extends HBox {
 
     }
 
-    private void saveFileChooser()
+    private void saveFileChooser(UserFile fileFromSelect)
     {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showSaveDialog(MainGUI.stage);
+        List<UserFile> oneFile = Arrays.asList(fileFromSelect);
+        ConnectionThread.downloadFiles(oneFile, Controller.user.getId());
+//        SaveFile(file);
+
     }
 }

@@ -153,7 +153,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
         }
     }
     public void downloadAllButtonClicked() {
-
+        ConnectionThread.downloadFiles(ListViewItemDownload.listFileToDowload, Controller.user.getId());
     }
 
     private void openFile(File file) {
