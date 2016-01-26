@@ -1,5 +1,9 @@
 package com.example.server;
 
+import com.example.database.DatabaseService;
+import com.example.database.DatabaseServiceImpl;
+import com.example.rmi.UserServiceImpl;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -15,15 +19,19 @@ import java.util.concurrent.Executors;
  */
 public class Main {
 
-    public static Integer ConnectionPort = 8080;
+    public static Integer ConnectionPort = 8888;
     public static Integer numberOfClients = 8;
 
     public static void main(String[] args) throws IOException {
 
         ServerSocket serverSocket;
 
+        //start database and rmi service
+        DatabaseService databaseServiceImpl = new DatabaseServiceImpl();
+        UserServiceImpl userService = new UserServiceImpl(databaseServiceImpl);
+
         ExecutorService executor = Executors.newFixedThreadPool(Main.numberOfClients);
-        List<ClientFutureTask> clientFutureTasks = new ArrayList<>();
+        List<ClientFutureTask> clientFutureTasks = new ArrayList<ClientFutureTask>();
 
             try {
 
