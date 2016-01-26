@@ -62,9 +62,9 @@ public class DatabaseServiceImpl implements DatabaseService {
 
         ResultSet resultSet = st.executeQuery(query);
 
-        st.close();
-
-        if(resultSet.next())
+        Boolean resultSetNext = resultSet.next();
+         st.close();
+        if(resultSetNext)
         {
             return true;
         }
@@ -72,6 +72,7 @@ public class DatabaseServiceImpl implements DatabaseService {
         {
             return false;
         }
+
     }
 
     @Override

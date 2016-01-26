@@ -30,6 +30,7 @@ public class Controller {
     public void loginButtonClicked() throws Exception {
 //        TODO Sprawdzic zmiany w UserRepository
         userRepository.loginUser(loginFromLogin.getText(), passwordFromLogin.getText());
+        changeWindowToMain();
     }
 
     public void registerButtonClicked() throws Exception {
