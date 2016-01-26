@@ -58,7 +58,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
 
         Parent root = FXMLLoader.load(getClass().getResource("main_gui.fxml"));
         stage = primaryStage;
-        stage.setTitle("Fusso");
+        stage.setTitle("Flusso");
         stage.setOnCloseRequest(e -> {
             e.consume();
             closeProgram();
@@ -96,7 +96,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
 
     public void sendFileButtonClicked() {
         System.out.print(fileList);
-        ConnectionThread.uploadFiles(fileList, 1);
+        ConnectionThread.uploadFiles(fileList, 3);
     }
 
     public void refreshButtonClicked() throws Exception {

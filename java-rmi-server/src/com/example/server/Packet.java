@@ -1,13 +1,14 @@
 package com.example.server;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Mateusz on 24.01.2016.
  */
-public class Packet {
-    private List<FileContent> files;
+public class Packet implements Serializable {
+    private List<FileContent> files = new ArrayList<>();
 
     public Packet(List<File> filesToSend) throws IOException {
         this.initFileContentList(filesToSend);
@@ -33,7 +34,7 @@ public class Packet {
      * informacje o pliku (obiekt klasy File)
      * zawartość pliku (tablica byte[])
      */
-    public class FileContent {
+    public class FileContent implements Serializable {
         private byte[] fileBytes;
         private File file;
 
