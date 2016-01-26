@@ -51,6 +51,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     String visibleLogin;
     UserRepository userRepository = new UserRepository();
     ObservableList<ListViewItemUpload> listViewDataUpload;
+    ObservableList<ListViewItemDownload> listViewDataDownload;
     static List<File> fileList;
     private Desktop desktop = Desktop.getDesktop();
     List<UserFile> inCloudFileList;
@@ -115,6 +116,13 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
         System.out.println(Controller.user.getId());
         inCloudFileList = userRepository.getUserFiles(Controller.user.getId());
         System.out.println(inCloudFileList);
+
+        for(UserFile file : inCloudFileList)
+        {
+            listViewDataDownload.add(new ListViewItemDownload(file));
+            listViewDownload.setItems(listViewDataDownload);
+            listViewUpload.getEditingIndex();
+        }
 
     }
 
