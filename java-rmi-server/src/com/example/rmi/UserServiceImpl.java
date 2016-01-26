@@ -78,16 +78,21 @@ public class UserServiceImpl extends UnicastRemoteObject implements UserService,
      * @return information if user account has been successfully created
      */
     public ResponseEntity<Boolean, Object> registerUser(User user) throws SQLException {
+        System.out.println("Checking mail " + user.getMail());
+
         Boolean userMailExists = databaseService.checkIfMailExists(user.getMail());
+        System.out.println("Mail checked");
 
         if(userMailExists) {
             return new ResponseEntity<Boolean, Object>(false, "User with this mail already exists");
         }
+        System.out.println("User doesn't exist");
 
         //saving user to database
         //TODO MBryzik  - zapisanie encji uytkownika do bazy danych
         databaseService.saveUser(user);
 
+        System.out.println("User " + user.getMail() + " saved");
         //client needs user with id - auto increment on database
         User newUser = databaseService.findUserByMail(user.getMail());
 

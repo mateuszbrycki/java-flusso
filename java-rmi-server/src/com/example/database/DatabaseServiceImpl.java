@@ -58,7 +58,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
         Statement st = connection.createStatement();
 
-        String query = "SELECT u.* FROM user u WHERE u.mail = " + mail + " AND u.password = " + password + ";";
+        String query = "SELECT u.* FROM user u WHERE u.mail = '" + mail + "' AND u.password = '" + password + "';";
 
         ResultSet resultSet = st.executeQuery(query);
 
@@ -90,7 +90,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     public User findUserByMail(String mail) throws SQLException {
         Statement st = connection.createStatement();
 
-        String query = "SELECT u.* FROM user WHERE u.mail = " + mail + ";";
+        String query = "SELECT u.* FROM user u WHERE u.mail = '" + mail + "';";
 
         ResultSet resultSet = st.executeQuery(query);
 
@@ -101,7 +101,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     public User findUserById(Integer userId) throws SQLException {
         Statement st = connection.createStatement();
 
-        String query = "SELECT u.* FROM user WHERE u.user_id = " + userId + ";";
+        String query = "SELECT u.* FROM user u WHERE u.user_id = " + userId + ";";
 
         ResultSet resultSet = st.executeQuery(query);
 
@@ -114,8 +114,7 @@ public class DatabaseServiceImpl implements DatabaseService {
     public Boolean checkIfMailExists(String mail) throws SQLException {
         Statement st = connection.createStatement();
 
-        String query = "SELECT u.user_id FROM user WHERE u.mail = " + mail + ";";
-
+        String query = "SELECT u.user_id FROM user u WHERE u.mail = '" + mail + "';";
         ResultSet resultSet = st.executeQuery(query);
 
         if(resultSet.next())

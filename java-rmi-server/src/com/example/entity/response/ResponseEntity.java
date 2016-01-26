@@ -1,9 +1,12 @@
 package com.example.entity.response;
 
+import java.io.Serializable;
+
 /**
  * Response entity
  */
-public class ResponseEntity<S, V> {
+public class ResponseEntity<S, V> implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private S status;
     private V value;
