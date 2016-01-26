@@ -157,7 +157,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
         imageUploadTab.setImage(new Image("file:java-rmi-client/media/cloud-upload.png"));
         logoView.setImage(new Image("file:java-rmi-client/media/fusso-logo.png"));
         refreshButton.setGraphic(new ImageView(new Image("file:java-rmi-client/media/refresh.png")));
-        userName.setText(visibleLogin);
+        userName.setText(Controller.user.getMail());
     }
 
 
