@@ -38,13 +38,11 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     @FXML
     TreeView<File> folderTree;
     @FXML
-    ListView<ListViewItemUpload> listViewUpload;
+    ListView<ListViewItemUpload> listViewUpload, listViewDownload;
     @FXML
-    ListView<ListViewItemUpload> listViewDownload;
-    @FXML
-    ImageView imageUploadTab;
-    @FXML
-    ImageView imageDownloadTab;
+    ImageView imageUploadTab, imageDownloadTab;
+    @FXML  javafx.scene.control.Button logoutButton;
+
 
     ObservableList<ListViewItemUpload> listViewDataUpload;
     static List<File> fileList;
@@ -88,13 +86,20 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     }
 
 
-    public void logoutButtonClicked(ActionEvent actionEvent) {
+    public void logoutButtonClicked() throws IOException {
+//        TODO close connection
+        boolean answer = ConfirmBox.display("Exit", "Sure you want to logout?");
+        if (answer) {
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            stage.close();
+        }
+
     }
 
-    public void sendFileButtonClicked(ActionEvent actionEvent) {
+    public void sendFileButtonClicked() {
     }
 
-    public void selectFilesButtonClicked(ActionEvent actionEvent) {
+    public void selectFilesButtonClicked() {
 
         fileList = fileChooser.showOpenMultipleDialog(stage);
         if (fileList != null) {

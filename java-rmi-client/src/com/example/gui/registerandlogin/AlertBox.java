@@ -13,8 +13,7 @@ import javafx.stage.Stage;
  */
 public class AlertBox {
 
-    public static void display(String title, String message)
-    {
+    public static void display(String title, String message) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -28,11 +27,11 @@ public class AlertBox {
         });
 
         VBox layout = new VBox(10);
+        layout.setId("blackscene");
         layout.getChildren().addAll(label, button);
-
         layout.setAlignment(Pos.CENTER);
-
         Scene scene = new Scene(layout);
+        Utils.getSource(scene, "gui.css");
         window.setScene(scene);
         window.showAndWait();
     }

@@ -21,7 +21,7 @@
                            </opaqueInsets>
                         </Label>
                         <Label fx:id="userName" prefHeight="24.0" prefWidth="80.0" text="user_name" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" onAction="#logoutButtonClicked" text="Logout" HBox.hgrow="ALWAYS">
+                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logoutButtonClicked" text="Logout" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
