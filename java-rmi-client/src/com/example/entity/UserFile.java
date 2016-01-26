@@ -1,11 +1,13 @@
 package com.example.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * UserFile entity
  */
-public class UserFile {
+public class UserFile implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Integer id;
 
