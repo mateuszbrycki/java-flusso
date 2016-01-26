@@ -1,5 +1,6 @@
 package com.example.gui.maingui;
 
+import com.example.entity.UserFile;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -19,17 +20,17 @@ import java.util.Iterator;
  */
 public class ListViewItemDownload extends HBox {
     private Button dowloadButtonItem;
-    private File file;
+    private UserFile file;
     private Label label;
 
-    static ArrayList<File> listFileToDowload = new ArrayList<>();
+    static ArrayList<UserFile> listFileToDowload = new ArrayList<>();
 
-    public ListViewItemDownload(File file) {
+    public ListViewItemDownload(UserFile file) {
         super();
         this.file = file;
         listFileToDowload.add(file);
         Image imageFile = new Image("file:java-rmi-client/media/text-x-generic.png");
-        label = new Label(file.getAbsolutePath());
+        label = new Label(file.getName());
         label.setGraphic(new ImageView(imageFile));
         label.getStyleClass().add("blacklabel");
         label.setMaxWidth(Double.MAX_VALUE);
@@ -49,11 +50,11 @@ public class ListViewItemDownload extends HBox {
     }
 
 
-    private void findFileToRemove(File file) {
-        ArrayList<File> list = listFileToDowload;
-        Iterator<File> it = list.iterator();
+    private void findFileToRemove(UserFile file) {
+        ArrayList<UserFile> list = listFileToDowload;
+        Iterator<UserFile> it = list.iterator();
         while (it.hasNext()) {
-            File temp = it.next();
+            UserFile temp = it.next();
             if (temp == file)
                 it.remove();
         }
