@@ -24,12 +24,13 @@ public class Controller {
     public javafx.scene.control.TextField  mailFromRegister;
     public javafx.scene.control.PasswordField passwordFromRegister;
     public javafx.scene.control.PasswordField repeatFromRegister;
-    public User user;
+    public static User user;
     public UserRepository userRepository = new UserRepository();
-    ResponseEntity<Boolean, Object> userEntity;
+    public static ResponseEntity<Boolean, Object> userEntity;
 
     public void loginButtonClicked() throws Exception {
         userEntity = userRepository.loginUser(loginFromLogin.getText(), passwordFromLogin.getText());
+        user = (User)userEntity.getValue();
         if (userEntity.getStatus())
             changeWindowToMain();
         else{
