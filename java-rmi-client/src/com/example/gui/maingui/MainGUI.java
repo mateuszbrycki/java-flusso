@@ -3,6 +3,7 @@ package com.example.gui.maingui;/**
  */
 
 import com.example.connection.ConnectionThread;
+import com.example.entity.UserFile;
 import com.example.gui.registerandlogin.ConfirmBox;
 import com.example.gui.registerandlogin.Controller;
 import com.example.gui.registerandlogin.Utils;
@@ -17,8 +18,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -42,12 +43,16 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     @FXML ImageView imageUploadTab, imageDownloadTab;
     @FXML  javafx.scene.control.Button logoutButton;
     @FXML javafx.scene.control.Button refreshButton;
+    @FXML javafx.scene.control.Button downloadAllButton;
+    @FXML Tab tabDowload;
+    @FXML TabPane tabPane;
 
     String visibleLogin;
     UserRepository userRepository = new UserRepository();
     ObservableList<ListViewItemUpload> listViewDataUpload;
     static List<File> fileList;
     private Desktop desktop = Desktop.getDesktop();
+    List<UserFile> inCloudFileList;
 
     public void setVisibleLogin(String VisibleLogin) {
         this.visibleLogin = VisibleLogin;
@@ -102,7 +107,9 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     }
 
     public void refreshButtonClicked() throws Exception {
-        userRepository.getUserFiles(Controller.user.getId());
+        inCloudFileList = userRepository.getUserFiles(Controller.user.getId());
+        System.out.println(inCloudFileList);
+
     }
 
     public void selectFilesButtonClicked() {
@@ -129,7 +136,8 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
             ListViewItemUpload temp = it.next();
                 it.remove();
         }
-
+    }
+    public void downloadAllButtonClicked() {
 
     }
 

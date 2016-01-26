@@ -30,9 +30,10 @@ public class Controller {
 
     public void loginButtonClicked() throws Exception {
         userEntity = userRepository.loginUser(loginFromLogin.getText(), passwordFromLogin.getText());
-        user = (User)userEntity.getValue();
-        if (userEntity.getStatus())
+        if (userEntity.getStatus()) {
             changeWindowToMain();
+            user = (User) userEntity.getValue();
+        }
         else{
             new AlertBox().display("Login Error", "Your account does not exist, check your account/password again");
         }
