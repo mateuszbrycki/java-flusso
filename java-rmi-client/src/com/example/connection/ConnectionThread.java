@@ -5,8 +5,6 @@ import com.example.entity.UserFile;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -158,7 +156,14 @@ public class ConnectionThread implements Callable<String> {
             if(ConnectionThread.FILE_TO_SAVE_NAME.equals("")) {
                 savePath = "downloads/" + file.getName();
             } else {
-                savePath = ConnectionThread.FILE_TO_SAVE_NAME;
+                if (ConnectionThread.FILE_TO_SAVE_NAME.endsWith("/"))
+                {
+                    savePath = ConnectionThread.FILE_TO_SAVE_NAME + file.getName();
+                }
+                else
+                {
+                    savePath = ConnectionThread.FILE_TO_SAVE_NAME;
+                }
             }
 
             FileOutputStream fileOutputStream = new FileOutputStream(savePath);
