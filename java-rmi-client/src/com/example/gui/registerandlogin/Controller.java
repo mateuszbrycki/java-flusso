@@ -1,6 +1,7 @@
 package com.example.gui.registerandlogin;
 
 import com.example.entity.User;
+import com.example.entity.response.ResponseEntity;
 import com.example.gui.maingui.MainGUI;
 import com.example.gui.registerandlogin.validation.MailTextFieldValidator;
 import com.example.gui.registerandlogin.validation.PasswordTextFieldValidator;
@@ -23,14 +24,17 @@ public class Controller {
     public javafx.scene.control.TextField  mailFromRegister;
     public javafx.scene.control.PasswordField passwordFromRegister;
     public javafx.scene.control.PasswordField repeatFromRegister;
-
-    public UserRepository userRepository = new UserRepository();
     public User user;
+    public UserRepository userRepository = new UserRepository();
+    ResponseEntity<Boolean, Object> userEntity;
 
     public void loginButtonClicked() throws Exception {
-//        TODO Sprawdzic zmiany w UserRepository
-        userRepository.loginUser(loginFromLogin.getText(), passwordFromLogin.getText());
-        changeWindowToMain();
+        userEntity = userRepository.loginUser(loginFromLogin.getText(), passwordFromLogin.getText());
+        if (userEntity.getStatus())
+            changeWindowToMain();
+        else{
+            new AlertBox().display("Login Error", "Your account does not exist, check your account/password again");
+        }
     }
 
     public void registerButtonClicked() throws Exception {
