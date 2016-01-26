@@ -5,6 +5,7 @@ import com.example.entity.UserFile;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -54,21 +55,21 @@ public class ConnectionThread implements Callable<String> {
                 this.socket = new Socket(InetAddress.getLocalHost(), Main.ConnectionPort);
                 InputStream inputStream = this.socket.getInputStream();
                 OutputStream outputStream = this.socket.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
 
-            try {
+                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
                 //wysłanie polecenia i id użytkownika
-                bufferedWriter.write(this.command + "\n");
-                bufferedWriter.flush();
+                objectOutputStream.writeObject(this.command);
+                objectOutputStream.flush();
 
-                bufferedWriter.write(this.userID + "\n");
-                bufferedWriter.flush();
+                objectOutputStream.writeInt(this.userID);
+                objectOutputStream.flush();
 
                 if (command.equals(DOWNLOAD)) {
-                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
                     objectOutputStream.writeObject(this.userFiles);
 
-                    ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
                     Packet packet = (Packet) objectInputStream.readObject();
                     List<Packet.FileContent> downloadedFiles = packet.getFileContentList();
 
@@ -78,7 +79,6 @@ public class ConnectionThread implements Callable<String> {
                     objectInputStream.close();
 
                 } else if (this.command.equals(UPLOAD)) {
-                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
                     Packet packet = new Packet(this.files);
 
@@ -86,10 +86,6 @@ public class ConnectionThread implements Callable<String> {
                     objectOutputStream.flush();
                     objectOutputStream.close();
                 }
-
-            } finally {
-                bufferedWriter.close();
-            }
 
         } catch (IOException e) {
             e.printStackTrace();

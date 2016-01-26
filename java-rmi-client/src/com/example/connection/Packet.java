@@ -27,7 +27,6 @@ public class Packet implements Serializable {
         for(File file: listOfFiles){
             this.files.add(new FileContent(file));
         }
-        System.out.println("zamienia pliki");
     }
 
     /**

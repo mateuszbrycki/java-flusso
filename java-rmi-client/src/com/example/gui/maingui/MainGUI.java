@@ -139,8 +139,6 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
             ListViewItemUpload temp = it.next();
                 it.remove();
         }
-
-
     }
 
 
