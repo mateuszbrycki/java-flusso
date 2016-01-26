@@ -23,10 +23,12 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -95,8 +97,17 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     }
 
     public void sendFileButtonClicked() {
-        System.out.print(fileList);
-        ConnectionThread.uploadFiles(fileList, 1);
+        System.out.print(ListViewItemUpload.listFileToSend);
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
+            @Override
+            protected Void doInBackground() throws Exception {
+                ConnectionThread.uploadFiles(ListViewItemUpload.listFileToSend, 1);
+                eraseTreeViewUpload();
+                return null;
+            }
+        };
+        worker.execute();
+
     }
 
     public void refreshButtonClicked() throws Exception {
@@ -116,6 +127,22 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
         }
 
     }
+
+    public void eraseTreeViewUpload() {
+        ListViewItemUpload.listFileToSend.clear();
+        System.out.print(ListViewItemUpload.listFileToSend);
+        ObservableList<ListViewItemUpload> toDelete;
+        toDelete = listViewUpload.getItems();
+        Iterator<ListViewItemUpload> it = toDelete.iterator();
+        while (it.hasNext())
+        {
+            ListViewItemUpload temp = it.next();
+                it.remove();
+        }
+
+
+    }
+
 
     private void openFile(File file) {
         try {

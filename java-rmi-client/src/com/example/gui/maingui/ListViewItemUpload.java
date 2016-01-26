@@ -43,7 +43,7 @@ public class ListViewItemUpload extends HBox {
         });
         this.getChildren().addAll(label, deleteButtonItem);
     }
-
+    
     private void findFileToRemove(File file)
     {
         ArrayList<File> list = listFileToSend;

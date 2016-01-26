@@ -68,7 +68,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#sendFileButtonClicked" text="Send File" />
+            <Button mnemonicParsing="false" onAction="#sendFileButtonClicked" text="Send Files" />
          </children>
          <BorderPane.margin>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
