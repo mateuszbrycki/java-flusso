@@ -3,7 +3,9 @@ package com.example.gui.maingui;/**
  */
 
 import com.example.connection.ConnectionThread;
+import com.example.entity.UserFile;
 import com.example.gui.registerandlogin.ConfirmBox;
+import com.example.gui.registerandlogin.Controller;
 import com.example.gui.registerandlogin.Utils;
 import com.example.rmi.UserRepository;
 import javafx.application.Application;
@@ -16,14 +18,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -42,18 +43,20 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     @FXML ImageView imageUploadTab, imageDownloadTab;
     @FXML  javafx.scene.control.Button logoutButton;
     @FXML javafx.scene.control.Button refreshButton;
+    @FXML javafx.scene.control.Button downloadAllButton;
+    @FXML Tab tabDowload;
+    @FXML TabPane tabPane;
 
     String visibleLogin;
     UserRepository userRepository = new UserRepository();
     ObservableList<ListViewItemUpload> listViewDataUpload;
     static List<File> fileList;
     private Desktop desktop = Desktop.getDesktop();
+    List<UserFile> inCloudFileList;
 
     public void setVisibleLogin(String VisibleLogin) {
         this.visibleLogin = VisibleLogin;
     }
-
-
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -97,22 +100,16 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     }
 
     public void sendFileButtonClicked() {
-        System.out.print(ListViewItemUpload.listFileToSend);
-        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
-            @Override
-            protected Void doInBackground() throws Exception {
-                ConnectionThread.uploadFiles(ListViewItemUpload.listFileToSend, 1);
-                eraseTreeViewUpload();
-                return null;
-            }
-        };
-        worker.execute();
-
+        System.out.println(ListViewItemUpload.listFileToSend);
+        System.out.println(Controller.user.getId());
+        ConnectionThread.uploadFiles(ListViewItemUpload.listFileToSend, Controller.user.getId());
+        eraseTreeViewUpload();
     }
 
     public void refreshButtonClicked() throws Exception {
-//        TODO how to check userID
-        userRepository.getUserFiles(12);
+        inCloudFileList = userRepository.getUserFiles(Controller.user.getId());
+        System.out.println(inCloudFileList);
+
     }
 
     public void selectFilesButtonClicked() {
@@ -140,7 +137,9 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
                 it.remove();
         }
     }
+    public void downloadAllButtonClicked() {
 
+    }
 
     private void openFile(File file) {
         try {
