@@ -80,6 +80,7 @@ public class ListViewItemDownload extends HBox {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("All files", "*.*");
         fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialFileName(fileFromSelect.getName());
         File file = fileChooser.showSaveDialog(MainGUI.stage);
         List<UserFile> oneFile = Arrays.asList(fileFromSelect);
         System.out.println("Selected path: " + file.getPath());
