@@ -84,6 +84,8 @@ public class ConnectionThread implements Callable<String> {
 
                 } else if (this.command.equals(UPLOAD)) {
 
+                    System.out.println("Files list in upload branch: " + this.files.size());
+
                     Packet packet = new Packet(this.files);
 
                     objectOutputStream.writeObject(packet);

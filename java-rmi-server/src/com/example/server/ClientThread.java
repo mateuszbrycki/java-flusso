@@ -109,6 +109,7 @@ public class ClientThread implements Callable<String> {
         System.out.println("upload after packet");
         List<Packet.FileContent> files = packet.getFileContentList();
 
+        System.out.println("Files list size " + files.size());
         this.saveUploadedFiles(files, ID);
 
         objectInputStream.close();
@@ -125,6 +126,7 @@ public class ClientThread implements Callable<String> {
 
         for(Packet.FileContent fileContent: files) {
             File file = fileContent.getFile();
+            System.out.println("Saving file: " + file.getName());
             byte[] fileBytes = fileContent.getFileBytes();
             FileOutputStream fileOutputStream = new FileOutputStream(file.getName());
             fileOutputStream.write(fileBytes);
