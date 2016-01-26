@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class LoginAndRegistrationGUI extends Application implements EventHandler<ActionEvent> {
 
-    Stage window;
+    static Stage window;
 
     public static void main(String[] args) {
         launch(args);
