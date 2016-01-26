@@ -1,4 +1,4 @@
-package com.example.server;
+package com.example.connection;
 
 import java.io.*;
 import java.util.ArrayList;
