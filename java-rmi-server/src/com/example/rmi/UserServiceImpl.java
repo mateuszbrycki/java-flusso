@@ -68,6 +68,8 @@ public class UserServiceImpl extends UnicastRemoteObject implements UserService,
         //TODO MBryzik - zwr�cenie wype�nionej encji u�ytkownika w celu przes�ania do klienta
         User user = databaseService.findUserByMail(mail);
 
+        System.out.println("User " + user.getMail() + " logged.");
+
         return new ResponseEntity<Boolean, Object>(true, user);
 
     }

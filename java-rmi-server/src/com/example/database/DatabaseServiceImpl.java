@@ -145,13 +145,14 @@ public class DatabaseServiceImpl implements DatabaseService {
     public List<UserFile> findUserFiles(Integer userId) throws SQLException {
         Statement st = connection.createStatement();
 
-        String query = "SELECT f.* FROM file WHERE f.fk_owner_id = " + userId + ";";
+        String query = "SELECT f.* FROM file f WHERE f.fk_owner_id = " + userId + ";";
 
         ResultSet resultSet = st.executeQuery(query);
+        List<UserFile> userFileList = this.mapUserFiles(resultSet);
 
         st.close();
 
-        return this.mapUserFiles(resultSet);
+        return userFileList;
     }
 
     private User mapUserObject(ResultSet resultSet) throws SQLException {
