@@ -24,6 +24,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -31,8 +32,10 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class MainGUI extends Application implements EventHandler<ActionEvent>, Initializable {
 
@@ -172,7 +175,15 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
 
 
     public void downloadAllButtonClicked() {
-        ConnectionThread.downloadFiles(ListViewItemDownload.listFileToDowload, Controller.user.getId());
+        DirectoryChooser chooser = new DirectoryChooser();
+        File defaultDirectory = new File("user.dir");
+        chooser.setInitialDirectory(defaultDirectory);
+        chooser.setTitle("Select directory");
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(stage);
+        String path = selectedDirectory.getAbsoluteFile() + "/";
+        System.out.print(path);
+        ConnectionThread.downloadFiles(ListViewItemDownload.listFileToDowload, Controller.user.getId(), path);
     }
 
     private void openFile(File file) {
