@@ -130,7 +130,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
 
     public void eraseTreeViewUpload() {
         ListViewItemUpload.listFileToSend.clear();
-        System.out.print(ListViewItemUpload.listFileToSend);
+        System.out.println(ListViewItemUpload.listFileToSend);
         ObservableList<ListViewItemUpload> toDelete;
         toDelete = listViewUpload.getItems();
         Iterator<ListViewItemUpload> it = toDelete.iterator();
