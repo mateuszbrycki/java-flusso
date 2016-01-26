@@ -18,8 +18,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -29,10 +31,8 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class MainGUI extends Application implements EventHandler<ActionEvent>, Initializable {
 
@@ -114,6 +114,7 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     }
 
     public void refreshButtonClicked() throws Exception {
+        eraseTreeViewDowload();
         System.out.println(Controller.user.getId());
         inCloudFileList = userRepository.getUserFiles(Controller.user.getId());
         System.out.println(inCloudFileList);
@@ -141,17 +142,35 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
     }
 
     public void eraseTreeViewUpload() {
-        ListViewItemUpload.listFileToSend.clear();
-        System.out.println(ListViewItemUpload.listFileToSend);
-        ObservableList<ListViewItemUpload> toDelete;
-        toDelete = listViewUpload.getItems();
-        Iterator<ListViewItemUpload> it = toDelete.iterator();
-        while (it.hasNext())
-        {
-            ListViewItemUpload temp = it.next();
+        if(ListViewItemUpload.listFileToSend.size()!=0) {
+            ListViewItemUpload.listFileToSend.clear();
+            System.out.println(ListViewItemUpload.listFileToSend);
+            ObservableList<ListViewItemUpload> toDelete;
+            toDelete = listViewUpload.getItems();
+            Iterator<ListViewItemUpload> it = toDelete.iterator();
+            while (it.hasNext()) {
+                ListViewItemUpload temp = it.next();
                 it.remove();
+            }
         }
     }
+
+    public void eraseTreeViewDowload() {
+        if(ListViewItemDownload.listFileToDowload.size()!=0) {
+            ListViewItemDownload.listFileToDowload.clear();
+            ObservableList<ListViewItemDownload> toDelete;
+            toDelete = listViewDownload.getItems();
+            Iterator<ListViewItemDownload> it = toDelete.iterator();
+            while (it.hasNext()) {
+                ListViewItemDownload temp = it.next();
+                it.remove();
+            }
+        }
+    }
+
+
+
+
     public void downloadAllButtonClicked() {
         ConnectionThread.downloadFiles(ListViewItemDownload.listFileToDowload, Controller.user.getId());
     }

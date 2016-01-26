@@ -82,7 +82,8 @@ public class ListViewItemDownload extends HBox {
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showSaveDialog(MainGUI.stage);
         List<UserFile> oneFile = Arrays.asList(fileFromSelect);
-        ConnectionThread.downloadFiles(oneFile, Controller.user.getId());
+        System.out.println("Selected path: " + file.getPath());
+        ConnectionThread.downloadFiles(oneFile, Controller.user.getId(), file.getPath());
 //        SaveFile(file);
 
     }
