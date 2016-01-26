@@ -53,8 +53,6 @@ public class MainGUI extends Application implements EventHandler<ActionEvent>, I
         this.visibleLogin = VisibleLogin;
     }
 
-
-
     @Override
     public void start(Stage primaryStage) throws IOException {
 
