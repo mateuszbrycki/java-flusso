@@ -1,11 +1,9 @@
 package com.example.rmi;
 
 import com.example.database.DatabaseService;
-import com.example.entity.UserFile;
 import com.example.entity.User;
+import com.example.entity.UserFile;
 import com.example.entity.response.ResponseEntity;
-
-import javax.naming.NamingException;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -29,8 +27,13 @@ public class UserServiceImpl extends UnicastRemoteObject implements UserService,
         this.databaseService = databaseService;
     }
 
-    public String call() throws RemoteException {
 
+    public static void loadServerPolicy() {
+        System.getProperty("user.dir");
+        System.setProperty("java.security.policy", "server.policy");
+    }
+    public String call() throws RemoteException {
+        loadServerPolicy();
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }

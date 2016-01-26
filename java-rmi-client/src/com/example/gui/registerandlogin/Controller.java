@@ -43,14 +43,15 @@ public class Controller {
         } catch (RegisterException e) {
             AlertBox.display("Something was wrong", "Form was filled not in a proper way");
         }
-        
+
     }
 
     public void changeWindowToMain() throws IOException {
+
         LoginAndRegistrationGUI.window.hide();
         MainGUI mainGUI = new MainGUI();
-        mainGUI.start(new Stage());
         System.out.print(loginFromRegister.getText());
         mainGUI.setVisibleLogin(loginFromRegister.getText());
+        mainGUI.start(new Stage());
     }
 }

@@ -1,3 +1,0 @@
-grant codebase "file:\G:\ideas\blog\posts\java-rmi\java-rmi-server\out\-"{
-    permission java.security.AllPermission;
-};

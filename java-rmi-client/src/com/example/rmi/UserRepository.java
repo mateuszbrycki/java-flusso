@@ -47,6 +47,11 @@ public class UserRepository {
         return UserRepository.getUserService().getUserFiles(userId);
     }
 
+    public static void loadClientPolicy() {
+        System.getProperty("user.dir");
+        System.out.print("Client");
+        System.setProperty("java.security.policy", "client.policy");
+    }
 
     /**
      * Connects to RMI server
@@ -54,6 +59,7 @@ public class UserRepository {
      * @throws Exception
      */
     private static UserService getUserService() throws Exception {
+        loadClientPolicy();
         if(UserRepository.userService == null) {
             if (System.getSecurityManager() == null) {
                 System.setSecurityManager(new SecurityManager());
